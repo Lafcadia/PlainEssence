@@ -1,0 +1,11 @@
+command /tpa <string>:
+    permission: skript.command.tpa
+    executable by: players
+    description: Teleport yourself to another player. Written by Lafcadia.
+    trigger:
+        if offlineplayer(arg-1) is not online:
+            send "玩家不在线! Player %arg-1% is not online."
+            stop
+        set {_p} to offlineplayer(arg-1)
+        teleport the player to {_p}
+        send "传送成功! Teleported to %arg-1%."
