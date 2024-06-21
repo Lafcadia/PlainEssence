@@ -9,3 +9,11 @@ command /tpa <string>:
         set {_p} to offlineplayer(arg-1)
         teleport the player to {_p}
         send "传送成功! Teleported to %arg-1%."
+
+command /getplayers:
+    permission: skript.command.getplayers
+    description: Get a list of all online players. Written by Lafcadia.
+    trigger:
+        send "在线玩家 (Online players):"
+        loop all players:
+            send "%loop-player%"
