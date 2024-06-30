@@ -1,4 +1,4 @@
-command /tpa <string>:
+command /tpa <offlineplayer>:
     permission: skript.command.tpa
     executable by: players
     description: Teleport yourself to another player. Written by Lafcadia.
@@ -17,3 +17,31 @@ command /getplayers:
         send "在线玩家 (Online players):"
         loop all players:
             send "%loop-player%"
+
+command /send <offlineplayer>:
+    permission: skript.command.send
+    executable by: players
+    description: Send an item to another player. Written by Lafcadia.
+    trigger:
+        if offlineplayer(arg-1) is not online:
+            send "玩家不在线! Player %arg-1% is not online."
+            stop
+        if offlineplayer(arg-1) has 0 empty slots:
+            send "玩家背包已满! Player %arg-1%'s inventory is full."
+            stop
+        set {_p} to offlineplayer(arg-1)
+        give {_p} player's tool
+        remove player's tool
+        send "发送成功! Sent your item to %arg-1%."
+        send to {_p} "收到物品! You have received an item from %player%."
+
+command /heal <offlineplayer>:
+    permission: skript.command.heal
+    description: Heal a player. Written by Lafcadia.
+    trigger:
+        if offlineplayer(arg-1) is not online:
+            send "玩家不在线! Player %arg-1% is not online."
+            stop
+        set {_p} to offlineplayer(arg-1)
+        heal {_p}
+        send "治疗成功! Healed %arg-1%."
